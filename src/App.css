@@ -1,0 +1,360 @@
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Manrope:wght@400;600&display=swap');
+
+:root {
+  --bg-top: #02030a;
+  --bg-bottom: #070914;
+  --moon-glow: #e5e8ff;
+  --text-main: #f1f4ff;
+  --text-soft: #b7c0de;
+  --btn-bg: #000;
+  --btn-fill: #1c1c1c;
+  --btn-border: #ffffff36;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
+  color: var(--text-main);
+}
+
+.night-sky {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1rem;
+  position: relative;
+  overflow: hidden;
+  background: #000;
+}
+
+.night-sky::after {
+  content: '';
+  position: absolute;
+  inset: -10%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: var(--blast-alpha, 0);
+  background: radial-gradient(circle, #ffffff 0%, #dbe2ff 22%, #a3b5ff33 58%, transparent 72%);
+  transition: opacity 120ms linear;
+}
+
+.moon {
+  position: absolute;
+  top: 8%;
+  right: 10%;
+  width: 115px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fdfdff 5%, #dde3ff 60%, #b6bfd8 100%);
+  box-shadow: 0 0 40px 6px #f0f3ff35;
+}
+
+.stars,
+.stars::before,
+.stars::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(2px 2px at 30px 40px, #ffffffc7 50%, transparent 53%),
+    radial-gradient(1.5px 1.5px at 220px 130px, #dfe8ff 50%, transparent 53%),
+    radial-gradient(1.5px 1.5px at 430px 70px, #ffffffaf 50%, transparent 53%),
+    radial-gradient(2px 2px at 610px 300px, #f7fbff 50%, transparent 53%),
+    radial-gradient(1.5px 1.5px at 760px 180px, #d8e2ff 50%, transparent 53%),
+    radial-gradient(2px 2px at 90% 72%, #ffffffbd 50%, transparent 53%);
+  background-size: 820px 420px;
+  animation: twinkle 8s linear infinite;
+}
+
+.stars::before {
+  opacity: 0.5;
+  filter: blur(0.8px);
+  animation-duration: 11s;
+}
+
+.stars::after {
+  opacity: 0.35;
+  transform: rotate(180deg);
+  animation-duration: 13s;
+}
+
+.nebula {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 72% 68%, #8ea8ff14 0%, transparent 42%),
+    radial-gradient(circle at 14% 75%, #afc1ff10 0%, transparent 35%);
+}
+
+.moon,
+.stars,
+.nebula {
+  display: none;
+}
+
+.scene {
+  width: min(760px, 92vw);
+  min-height: 300px;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 2.2rem 1.5rem;
+}
+
+.block {
+  width: 100%;
+}
+
+.ending {
+  position: relative;
+  min-height: 130px;
+  display: grid;
+  place-items: center;
+  transition: opacity 2200ms ease, transform 2200ms ease;
+}
+
+.ending-text {
+  transition: opacity 2600ms ease, transform 2600ms ease;
+}
+
+.ending-text.fading {
+  opacity: 0;
+  transform: translateY(-12px) scale(0.96);
+}
+
+.ending-date {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: 'Marcellus', serif;
+  font-size: clamp(2.2rem, 11vw, 3.6rem);
+  letter-spacing: 2px;
+  color: #f3f6ff;
+  text-shadow: 0 0 20px #d7e0ff94;
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 1800ms ease 400ms, transform 1800ms ease 400ms;
+}
+
+.ending-date.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+h1,
+h2,
+.story-text {
+  font-family: 'Marcellus', serif;
+  letter-spacing: 0.2px;
+  margin: 0;
+  text-shadow: 0 6px 30px #0000007a;
+}
+
+h1,
+h2 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  line-height: 1.1;
+}
+
+.story-text {
+  font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+  line-height: 1.35;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 1.6rem;
+}
+
+.btn {
+  border: 1px solid var(--btn-border);
+  border-radius: 5px;
+  font-size: 1rem;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  min-width: 102px;
+  color: var(--text-main);
+  background: var(--btn-bg);
+  box-shadow: inset 0 0 0 1px #ffffff0d, 0 6px 22px #00000052;
+  padding: 0.65rem 1.3rem;
+  transition: transform 180ms ease, opacity 180ms ease, box-shadow 180ms ease;
+}
+
+.btn.yes {
+  background: var(--btn-bg);
+}
+
+.btn.yes::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: var(--fill, 0%);
+  background: linear-gradient(90deg, #22325f, var(--btn-fill));
+  transition: width 40ms linear;
+}
+
+.btn.yes.loading {
+  box-shadow: inset 0 0 0 1px #d0deff2f, 0 0 22px #6e8ce266;
+}
+
+.btn.yes {
+  isolation: isolate;
+}
+
+.btn.yes > span {
+  position: relative;
+  z-index: 2;
+}
+
+.btn.no {
+  background: var(--btn-bg);
+}
+
+.btn:disabled {
+  cursor: default;
+  opacity: 0.72;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: inset 0 0 0 1px #ffffff1a, 0 8px 24px #00000070;
+}
+
+.inline-msg,
+.hint {
+  margin-top: 1rem;
+  color: var(--text-soft);
+  font-size: 0.96rem;
+}
+
+.runner {
+  position: relative;
+}
+
+.enter {
+  animation: fadeInUp 900ms ease both;
+}
+
+.leave {
+  animation: fadeOut 1000ms ease both;
+}
+
+.blast {
+  animation: pulseGlow 520ms ease infinite alternate;
+}
+
+.shake-screen {
+  animation: shakeWorld 95ms linear infinite;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.7;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(2px);
+  }
+  100% {
+    opacity: 0.75;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseGlow {
+  from {
+    transform: scale(1);
+    text-shadow: 0 0 10px #d3ddff44;
+  }
+  to {
+    transform: scale(1.05);
+    text-shadow: 0 0 30px #f0f4ff;
+  }
+}
+
+@keyframes shakeWorld {
+  0% {
+    transform: translate(2px, 1px) rotate(0deg);
+  }
+  25% {
+    transform: translate(-2px, 0) rotate(0.4deg);
+  }
+  50% {
+    transform: translate(1px, -2px) rotate(-0.4deg);
+  }
+  75% {
+    transform: translate(-1px, 2px) rotate(0.35deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .night-sky {
+    background-image: linear-gradient(180deg, #02030a9c, #04070fa8),
+      url('./assets/luar.jpg');
+    background-size: 120%;
+    background-position: center 44%;
+    background-repeat: no-repeat;
+    transition: background-size 9000ms ease, background-position 9000ms ease;
+  }
+
+  .night-sky.ending-cinematic {
+    background-size: 185%;
+    background-position: center 62%;
+  }
+
+  .scene {
+    min-height: 340px;
+    padding: 1.8rem 1rem;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn {
+    width: 190px;
+  }
+}
